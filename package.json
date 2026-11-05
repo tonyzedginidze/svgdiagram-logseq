@@ -1,0 +1,29 @@
+{
+  "name": "svgdiagram-logseq-source",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/diagram"
+  ],
+  "dependencies": {
+    "@svgdiagram/diagram": "workspace:*",
+    "change-case": "5.4.4",
+    "debug": "4.4.3",
+    "deepmerge": "4.3.1",
+    "dompurify": "3.4.17",
+    "eventemitter3": "5.0.4",
+    "fast-deep-equal": "3.1.3",
+    "lodash-es": "4.18.1",
+    "path": "0.12.7",
+    "process": "0.11.10",
+    "vue": "3.5.44",
+    "@fontsource/archivo": "5.3.0",
+    "@fontsource/barlow-condensed": "5.3.0",
+    "@fontsource/inter": "5.2.8",
+    "@fontsource/source-sans-3": "5.3.0"
+  },
+  "devDependencies": {
+    "vite": "7.3.7",
+    "@vitejs/plugin-vue": "6.0.4"
+  }
+}

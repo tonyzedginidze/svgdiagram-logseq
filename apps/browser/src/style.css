@@ -1,0 +1,7 @@
+:root{--font-ui-small:13px;--font-ui-smaller:12px;--font-semibold:600;--radius-m:6px;--radius-s:4px;--background-secondary:#f3f5f9;--background-primary:#fff;--text-accent:#2455ee;--text-muted:#5d6a80;--background-modifier-border:#d6dfed;--background-modifier-hover:#e9eef8}
+body.svgdiagram-modal{width:auto;margin:0;background:#f8faff;color:#18243a;font-family:Inter,system-ui,sans-serif;padding:24px}
+.browser-app{max-width:1100px;margin:auto}.browser-app header h1{font-size:24px;margin:0}.browser-app header p{color:var(--text-muted)}
+.svgdiagram-modal *{box-sizing:border-box}.svgdiagram-modal button,.svgdiagram-modal input,.svgdiagram-modal textarea,.svgdiagram-modal select{font:inherit;color:inherit;background:#fff;border:1px solid var(--background-modifier-border);border-radius:5px;padding:8px}
+.svgdiagram-modal button{cursor:pointer}.svgdiagram-modal button.mod-cta{background:#2455ee;color:#fff}.svgdiagram-modal button:disabled{opacity:.5;cursor:default}
+.ai-panel{display:grid;gap:12px;max-width:750px}.ai-panel p{margin:0}.ai-panel img{max-width:100%;height:auto}.ai-panel .sd-preview{min-height:120px}
+.browser-app .sd-preview{align-items:flex-start}

@@ -1,0 +1,24 @@
+import { dirname, resolve } from 'node:path';
+import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { bundleApp } from '../../canva/scripts/package.js';
+
+const base = resolve(import.meta.dirname, '..');
+const output = resolve(base, 'dist');
+await rm(output, { recursive: true, force: true });
+await mkdir(output, { recursive: true });
+const polyfill = await Bun.build({ entrypoints: [resolve(base, 'src/polyfill.js')], outdir: output, target: 'browser', format: 'iife', naming: 'polyfill.js', minify: true });
+if (!polyfill.success) throw new Error('Logseq process polyfill build failed');
+const vue = dirname(Bun.resolveSync('vue/package.json', resolve(base, '../obsidian')));
+await bundleApp({ entry: resolve(base, 'src/main.js'), outputDirectory: output, aliases: { vue }, define: { LIB_VERSION: JSON.stringify('0.3.4') }, globalName: 'SVGDiagramLogseq', translations: {}, scriptFile: 'plugin.js', cssFile: 'app.css' });
+const sdkLicense = await readFile(resolve(base, 'vendor/logseq-sdk/LICENSE'), 'utf8');
+const notices = resolve(output, 'THIRD_PARTY_NOTICES.txt');
+const processLicense = await readFile(resolve(dirname(Bun.resolveSync('process/package.json', base)), 'LICENSE'), 'utf8');
+await writeFile(notices, `${await readFile(notices, 'utf8')}\n\nLogseq SDK, release 2.0.2, AGPL-3.0\n${sdkLicense}\n\nprocess 0.11.10\n${processLicense}`);
+await writeFile(resolve(output, 'index.html'), '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="./app.css"></head><body><div id="app"></div><script src="./polyfill.js"></script><script src="./plugin.js"></script></body></html>\n');
+const manifest = await Bun.file(resolve(base, 'package.json')).json();
+manifest.main = 'index.html';
+delete manifest.scripts;
+delete manifest.dependencies;
+delete manifest.private;
+await writeFile(resolve(output, 'package.json'), JSON.stringify(manifest, null, 2) + '\n');
+await cp(resolve(base, 'vendor/logseq-sdk/LICENSE'), resolve(output, 'LICENSE'));
