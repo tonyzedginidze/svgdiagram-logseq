@@ -1,0 +1,21 @@
+name: Build plugin release
+on:
+  release:
+    types: [published]
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.3
+      - run: bun install --frozen-lockfile --ignore-scripts
+      - run: bun run --cwd apps/logseq package
+      - run: cd apps/logseq/dist && zip -qr ../../../svgdiagram-logseq.zip .
+      - run: gh release upload "$RELEASE_TAG" svgdiagram-logseq.zip --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
