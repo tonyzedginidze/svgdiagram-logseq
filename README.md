@@ -4,6 +4,8 @@ Create Venn diagrams, charts and other diagrams locally, then insert an SVG afte
 
 Select a block and choose **SVG Diagram: Create a diagram** from the command palette, or use the **SVG Diagram** slash command. Edit the fields, review the preview, and choose **Add to note**.
 
+The marketplace release supports file-based graphs. Database graph attachment synchronization has not been verified.
+
 Example Venn diagram created and inserted with the plugin:
 
 ![Example Venn diagram](assets/example.svg)
